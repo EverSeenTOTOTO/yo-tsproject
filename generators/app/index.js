@@ -66,12 +66,12 @@ module.exports = class extends Generator {
       this.destinationPath('./.eslintignore'),
     );
     this.fs.copy(
-      this.templatePath('./.gitignore'),
-      this.destinationPath('./.gitignore'),
-    );
-    this.fs.copy(
       this.templatePath('./.vscode/'),
       this.destinationPath('./.vscode/'),
+    );
+    this.fs.write(
+        this.destinationPath('./.gitignore'),
+        "node_modules"
     );
   }
 
