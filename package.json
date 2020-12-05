@@ -3,10 +3,21 @@
   "version": "1.0.0",
   "description": "Quickly generate an empty node backend typescript project, with typescript, eslint, jest and vscode-debug support.",
   "main": "index.js",
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "license": "MIT",
+  "author": "EverSeenTOTOTO <jialiuniu@gmail.com>",
+  "homepage": "https://github.com/EverSeenTOTOTO/yo-tsproject",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EverSeenTOTOTO/yo-tsproject.git"
+  },
+  "bugs": {
+    "url": "https://github.com/EverSeenTOTOTO/yo-tsproject/issues"
+  },
   "dependencies": {
     "yeoman-generator": "^4.12.0"
-  }
+  },
+  "keywords": [
+    "yo",
+    "generator"
+  ]
 }
