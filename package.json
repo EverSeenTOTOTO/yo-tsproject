@@ -1,6 +1,6 @@
 {
   "name": "@everseenflash/generator-yo-tsproject",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Quickly generate an empty node backend typescript project, with typescript, eslint, jest and vscode-debug support.",
   "main": "index.js",
   "license": "MIT",
