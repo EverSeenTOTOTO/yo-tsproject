@@ -40,7 +40,6 @@ module.exports = class extends Generator {
         'eslint-plugin-import': '^2.22.1',
         'eslint-plugin-jest': '^24.1.3',
         jest: '^26.6.3',
-        "ts-jest": "^26.4.4",
         typescript: '^4.1.2',
       },
       scripts: {
