@@ -1,1 +1,11 @@
-export default 'Hello World';
+import 'module-alias/register'; // tsc will not compile path alias
+import 'reflect-metadata'; // reflect metadata support, uninstall if you do not need
+import dotenv from 'dotenv'; // dotenv support, uninstall if you do not need
+
+import { world } from '@/aliase';
+
+dotenv.config();
+
+export const hello = `${process.env.HELLO} ${world}`;
+
+console.log(hello);

@@ -1,5 +1,4 @@
 const Generator = require('yeoman-generator');
-
 module.exports = class extends Generator {
   async prompting() {
     this.answers = await this.prompt([
@@ -12,7 +11,7 @@ module.exports = class extends Generator {
       {
         type: 'confirm',
         name: 'yarn',
-        message: 'Use yarn?',
+        message: 'Use yarn (default: no)?',
         default: false,
       },
     ]);
@@ -20,34 +19,43 @@ module.exports = class extends Generator {
 
   writing() {
     const pkgJson = {
-      name: this.answers.name,
-      main: 'dist/index.js',
-      types: 'dist/index.d.ts',
-      dependencies: {
-        'reflect-metadata': '^0.1.13',
+      "name": "tsdemo",
+      "main": "dist/index.js",
+      "types": "dist/index.d.ts",
+      "dependencies": {
+        "dotenv": "^8.2.0",
+        "module-alias": "^2.2.2",
+        "reflect-metadata": "^0.1.13"
       },
-      devDependencies: {
-        '@babel/core': '^7.12.9',
-        '@babel/preset-env': '^7.12.7',
-        '@babel/preset-typescript': '^7.12.7',
-        '@types/jest': '^26.0.16',
-        '@types/node': '^14.14.10',
-        '@typescript-eslint/eslint-plugin': '^4.9.0',
-        '@typescript-eslint/parser': '^4.9.0',
-        'babel-jest': '^26.6.3',
-        eslint: '^7.15.0',
-        'eslint-config-airbnb-typescript': '^12.0.0',
-        'eslint-plugin-import': '^2.22.1',
-        'eslint-plugin-jest': '^24.1.3',
-        jest: '^26.6.3',
-        typescript: '^4.1.2',
+      "devDependencies": {
+        "@babel/core": "^7.12.9",
+        "@babel/preset-env": "^7.12.7",
+        "@babel/preset-typescript": "^7.12.7",
+        "@types/jest": "^26.0.16",
+        "@types/node": "^14.14.10",
+        "@typescript-eslint/eslint-plugin": "^4.9.0",
+        "@typescript-eslint/parser": "^4.9.0",
+        "babel-jest": "^26.6.3",
+        "babel-plugin-module-resolver": "^4.1.0",
+        "eslint": "^7.15.0",
+        "eslint-config-airbnb-typescript": "^12.0.0",
+        "eslint-plugin-import": "^2.22.1",
+        "eslint-plugin-jest": "^24.1.3",
+        "jest": "^26.6.3",
+        "nodemon": "^2.0.7",
+        "ts-jest": "^26.4.4",
+        "typescript": "^4.1.2"
       },
-      scripts: {
-        build: 'tsc',
-        start: 'npm run build && node dist/index.js',
-        lint: 'eslint --fix .',
-        test: 'jest',
+      "_moduleAliases": {
+        "@": "dist"
       },
+      "scripts": {
+        "build": "rm -rf dist && tsc",
+        "dev": "nodemon --inspect",
+        "start": "yarn build && node dist/index.js",
+        "lint": "eslint --fix .",
+        "test": "jest"
+      }
     };
 
     // Extend or create package.json file in destination path
@@ -62,6 +70,10 @@ module.exports = class extends Generator {
       this.destinationPath('./.eslintrc.js'),
     );
     this.fs.copy(
+      this.templatePath('./.env'),
+      this.destinationPath('./.env'),
+    );
+    this.fs.copy(
       this.templatePath('./.eslintignore'),
       this.destinationPath('./.eslintignore'),
     );
@@ -70,8 +82,9 @@ module.exports = class extends Generator {
       this.destinationPath('./.vscode/'),
     );
     this.fs.write(
-        this.destinationPath('./.gitignore'),
-        "node_modules"
+      this.destinationPath('./.gitignore'),
+      "node_modules",
+      "dist"
     );
   }
 
