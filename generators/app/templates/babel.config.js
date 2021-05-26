@@ -6,7 +6,7 @@ module.exports = {
   plugins: [
     ['module-resolver', {
       alias: {
-        '@': `${process.cwd()}/src/`,
+        '@': `${__dirname}/src/`,
       },
       extensions: ['.js', '.ts', '.json'],
     },

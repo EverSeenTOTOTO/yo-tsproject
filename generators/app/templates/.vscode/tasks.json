@@ -5,19 +5,12 @@
     "version": "2.0.0",
     "tasks": [
       {
-        "label": "Ts build",
+        "label": "Make build",
         "type": "shell",
-        "command": "npx tsc",
-        "windows": {
-          "command": "npx tsc"
-        },
+        "command": "make build",
         "group": {
           "kind": "build",
           "isDefault": true
-        },
-        "presentation": {
-          "reveal": "always",
-          "panel": "new"
         }
       }
     ]

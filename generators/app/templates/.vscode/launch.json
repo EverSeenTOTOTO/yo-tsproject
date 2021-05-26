@@ -12,7 +12,7 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}/src/index.ts",
-            "preLaunchTask": "Ts build",
+            "preLaunchTask": "Make build",
             "outFiles": [
                 "${workspaceFolder}/dist/**/*.js"
             ]

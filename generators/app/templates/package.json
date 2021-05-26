@@ -28,12 +28,5 @@
   },
   "_moduleAliases": {
     "@": "dist"
-  },
-  "scripts": {
-    "build": "rm -rf dist && tsc",
-    "dev": "nodemon --inspect",
-    "start": "yarn build && node dist/index.js",
-    "lint": "eslint --fix .",
-    "test": "jest"
   }
 }
