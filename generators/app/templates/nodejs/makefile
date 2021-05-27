@@ -21,4 +21,4 @@ watch:
 test:
 	npx jest
 
-.PHONY: lint clean build start test
+.PHONY: lint clean build start test watch
