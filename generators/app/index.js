@@ -1,4 +1,7 @@
 const Generator = require('yeoman-generator');
+
+const pkgJson = require('./pkgJson');
+
 module.exports = class extends Generator {
   async prompting() {
     this.answers = await this.prompt([
@@ -29,20 +32,20 @@ module.exports = class extends Generator {
       this.log.error('invalid target: ', target);
       process.exit(-1)
     }
+
+    this.fs.extendJSON(this.destinationPath('package.json'), pkgJson[target]);
+
     this.fs.copyTpl(
       this.templatePath(`./${target}`),
       this.destinationPath(`./`),
     );
-    this.copyHiddenFiles(target);
-  }
 
-  copyHiddenFiles(target) {
     [
       '.env',
       '.eslintignore',
       '.vscode',
     ].forEach(each => {
-      this.fs.write(
+      this.fs.copyTpl(
         this.templatePath(`./${target}/${each}`),
         this.destinationPath(`./${each}`),
       )
