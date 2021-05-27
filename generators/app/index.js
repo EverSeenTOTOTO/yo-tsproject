@@ -25,9 +25,13 @@ module.exports = class extends Generator {
 
   writing() {
     const target = this.answers.target;
+    if(['nodejs', 'web'].indexOf(target) === -1) {
+      this.log.error('invalid target: ', target);
+      process.exit(-1)
+    }
     this.fs.copyTpl(
       this.templatePath(`./${target}`),
-      this.destinationPath(`./${target}`),
+      this.destinationPath(`./`),
     );
     this.copyHiddenFiles(target);
   }
@@ -40,14 +44,15 @@ module.exports = class extends Generator {
     ].forEach(each => {
       this.fs.write(
         this.templatePath(`./${target}/${each}`),
-        this.destinationPath(`./${target}/${each}`),
+        this.destinationPath(`./${each}`),
       )
     })
 
     this.fs.write(
-      this.destinationPath(`./${target}/.gitignore`),
+      this.destinationPath(`./.gitignore`),
       "node_modules",
-      "dist"
+      "dist",
+      "*.log"
     );
   }
 
