@@ -15,6 +15,9 @@ start:
 	if [[ ! -d ${DIST} ]]; then make build; fi
 	node ${DIST}/index.js
 
+watch:
+	npx nodemon --config nodemon.json
+
 test:
 	npx jest
 

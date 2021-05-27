@@ -11,7 +11,7 @@
     "src/*",
     ".env"
   ],
-  "exec": "yarn start",
+  "exec": "make start",
   "ext": "js,json,ts,env",
   "delay": 2000
 }

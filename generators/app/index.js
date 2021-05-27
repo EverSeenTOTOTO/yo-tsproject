@@ -11,78 +11,42 @@ module.exports = class extends Generator {
       {
         type: 'confirm',
         name: 'yarn',
-        message: 'Use yarn (default: no)?',
-        default: false,
+        message: 'Use yarn (default: true)?',
+        default: true,
       },
+      {
+        type: 'confirm',
+        name: 'target',
+        message: 'Using nodejs (default: nodejs, available values: web)?',
+        default: 'nodejs'
+      }
     ]);
   }
 
   writing() {
-    const pkgJson = {
-      "name": "tsdemo",
-      "main": "dist/index.js",
-      "types": "dist/index.d.ts",
-      "dependencies": {
-        "dotenv": "^8.2.0",
-        "module-alias": "^2.2.2",
-        "reflect-metadata": "^0.1.13"
-      },
-      "devDependencies": {
-        "@babel/core": "^7.12.9",
-        "@babel/preset-env": "^7.12.7",
-        "@babel/preset-typescript": "^7.12.7",
-        "@types/jest": "^26.0.16",
-        "@types/node": "^14.14.10",
-        "@typescript-eslint/eslint-plugin": "^4.9.0",
-        "@typescript-eslint/parser": "^4.9.0",
-        "babel-jest": "^26.6.3",
-        "babel-plugin-module-resolver": "^4.1.0",
-        "eslint": "^7.15.0",
-        "eslint-config-airbnb-typescript": "^12.0.0",
-        "eslint-plugin-import": "^2.22.1",
-        "eslint-plugin-jest": "^24.1.3",
-        "jest": "^26.6.3",
-        "nodemon": "^2.0.7",
-        "ts-jest": "^26.4.4",
-        "typescript": "^4.1.2"
-      },
-      "_moduleAliases": {
-        "@": "dist"
-      },
-      "scripts": {
-        "build": "rm -rf dist && tsc",
-        "dev": "nodemon --inspect",
-        "start": "yarn build && node dist/index.js",
-        "lint": "eslint --fix .",
-        "test": "jest"
-      }
-    };
-
-    // Extend or create package.json file in destination path
-    this.fs.extendJSON(this.destinationPath('package.json'), pkgJson);
+    const target = this.answers.target;
+    const folder = this.answers.name;
     this.fs.copyTpl(
-      this.templatePath('./'),
-      this.destinationPath('./'),
+      this.templatePath(`./${target}`),
+      this.destinationPath(`./${folder}`),
     );
-    // copy hidden files
-    this.fs.copy(
-      this.templatePath('./.eslintrc.js'),
-      this.destinationPath('./.eslintrc.js'),
-    );
-    this.fs.copy(
-      this.templatePath('./.env'),
-      this.destinationPath('./.env'),
-    );
-    this.fs.copy(
-      this.templatePath('./.eslintignore'),
-      this.destinationPath('./.eslintignore'),
-    );
-    this.fs.copy(
-      this.templatePath('./.vscode/'),
-      this.destinationPath('./.vscode/'),
-    );
+    this.copyHiddenFiles(target, folder);
+  }
+
+  copyHiddenFiles(target, folder) {
+    [
+      '.env',
+      '.eslintignore',
+      '.vscode',
+    ].forEach(each => {
+      this.fs.write(
+        this.templatePath(`./${target}/${each}`),
+        this.destinationPath(`./${folder}/${each}`),
+      )
+    })
+
     this.fs.write(
-      this.destinationPath('./.gitignore'),
+      this.destinationPath(`./${target}/.gitignore`),
       "node_modules",
       "dist"
     );
@@ -90,8 +54,8 @@ module.exports = class extends Generator {
 
   install() {
     this.installDependencies({
-      npm: !this.answers.yarn,
       bower: false,
+      npm: !this.answers.yarn,
       yarn: this.answers.yarn,
     });
   }
