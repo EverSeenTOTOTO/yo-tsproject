@@ -15,7 +15,7 @@ module.exports = class extends Generator {
         default: true,
       },
       {
-        type: 'confirm',
+        type: 'input',
         name: 'target',
         message: 'Using nodejs (default: nodejs, available values: web)?',
         default: 'nodejs'
@@ -25,15 +25,14 @@ module.exports = class extends Generator {
 
   writing() {
     const target = this.answers.target;
-    const folder = this.answers.name;
     this.fs.copyTpl(
       this.templatePath(`./${target}`),
-      this.destinationPath(`./${folder}`),
+      this.destinationPath(`./${target}`),
     );
-    this.copyHiddenFiles(target, folder);
+    this.copyHiddenFiles(target);
   }
 
-  copyHiddenFiles(target, folder) {
+  copyHiddenFiles(target) {
     [
       '.env',
       '.eslintignore',
@@ -41,7 +40,7 @@ module.exports = class extends Generator {
     ].forEach(each => {
       this.fs.write(
         this.templatePath(`./${target}/${each}`),
-        this.destinationPath(`./${folder}/${each}`),
+        this.destinationPath(`./${target}/${each}`),
       )
     })
 
