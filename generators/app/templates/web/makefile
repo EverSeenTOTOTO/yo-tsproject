@@ -4,6 +4,7 @@ DIST ?= dist
 
 lint:
 	npx eslint --fix .
+	@echo -e '\033[1;32mNo lint errors found.'
 
 clean:
 	-rm -r ${DIST}
