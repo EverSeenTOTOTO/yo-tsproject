@@ -8,6 +8,7 @@
     "outDir": "./dist/",
     "baseUrl": ".",
     "strict": true,
+    "noEmit": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
@@ -28,7 +29,7 @@
     }
   },
   "include": [
-    "src/**/*", "__test__",
+    "src/**/*",
   ],
   "exclude": [
     "*/__test__/**/*"

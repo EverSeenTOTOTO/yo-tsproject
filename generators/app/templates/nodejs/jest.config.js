@@ -3,11 +3,10 @@ module.exports = {
   coverageDirectory: 'coverage',
   coverageProvider: 'v8',
   moduleNameMapper: {
-    '^@/': '<rootDir>/src/',
+    '^@/(.*)$': '<rootDir>/src/$1',
+    '^@test/(.*)$': '<rootDir>/src/__tests__/$1',
   },
   rootDir: '.',
-  // setupFiles: [],
-  // setupFilesAfterEnv: [],
   testEnvironment: 'node',
   testMatch: [
     '**/__tests__/**/*.test.ts',
@@ -19,8 +18,4 @@ module.exports = {
     '/node_modules/',
     '\\.pnp\\.[^\\/]+$',
   ],
-
-  // watchPathIgnorePatterns: [],
-  // Whether to use watchman for file crawling
-  // watchman: true,
 };

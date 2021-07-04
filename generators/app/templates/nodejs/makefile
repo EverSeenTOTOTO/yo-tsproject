@@ -4,15 +4,16 @@ DIST ?= dist
 
 lint:
 	npx eslint --fix .
+	npx tsc
+	@echo -e '\033[1;32mNo lint errors found.'
 
 clean:
 	-rm -r ${DIST}
 
 build: clean
-	npx tsc --outDir $(DIST)
+	npx rollup -c rollup.config.js
 
-start:
-	if [[ ! -d ${DIST} ]]; then make build; fi
+start: build
 	node ${DIST}/index.js
 
 watch:

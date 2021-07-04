@@ -12,6 +12,5 @@ npm i -g @everseenflash/generator-yo-tsproject
 ## Usage
 
 ```bash
-mkdir tsdemo && cd $_
 yo @everseenflash/yo-tsproject
 ```

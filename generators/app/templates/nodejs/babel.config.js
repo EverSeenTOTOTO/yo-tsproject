@@ -4,12 +4,6 @@ module.exports = {
     '@babel/preset-typescript',
   ],
   plugins: [
-    ['module-resolver', {
-      alias: {
-        '@': `${__dirname}/src/`,
-      },
-      extensions: ['.js', '.ts', '.json'],
-    },
-    ],
+    '@babel/plugin-transform-runtime',
   ],
 };
